@@ -1,8 +1,9 @@
-class demo_cis::controls::redhat::c_1_1_1_5 (
+class demo_cis::controls::redhat::cis_1_1_1_5 (
   $enable = true,
 ){
   if $enable == true {
     file{'cis_1_1_1_5':
+      ensure  => present,
       path    => '/etc/modprobe.d/cis_1_1_1_5.conf',
       mode    => '0644',
       owner   => 'root',
