@@ -1,4 +1,4 @@
-class demo_cis::controls::redhat::cis_1_1_1_3 (
+class demo_cis::controls::redhat::seven::cis_1_1_1_3 (
   $enable = true,
 ){
   if $enable == true {
