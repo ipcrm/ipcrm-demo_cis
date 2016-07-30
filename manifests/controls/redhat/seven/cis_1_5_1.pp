@@ -9,8 +9,9 @@ class demo_cis::controls::redhat::seven::cis_1_5_1 (
     }
 
     file_line {'cis_1_5_1_sysctl.conf':
-      path => '/etc/sysctl.conf',
-      line => 'fs.suid_dumpable = 0',
+      path   => '/etc/sysctl.conf',
+      line   => 'fs.suid_dumpable = 0',
+      notify => Exec['cis_sysctl'],
     }
 
   }

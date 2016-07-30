@@ -290,22 +290,6 @@ Facter.add(:cis_1_7_1_6) do
   end
 end
 
-Facter.add(:cis_1_8) do
-  confine :osfamily => 'RedHat'
-  confine :operatingsystemmajrelease => '7'
-  setcode do
-    s = Facter::Core::Execution.exec(
-      'yum check-update|egrep "(x86_64|noarch|i686|i386)"|wc -l'
-    )
-    if ( s.to_i > 0 )
-      :fail
-    else
-      :pass
-    end
-  end
-end
-
-
 Facter.add(:cis_5_2_1) do
   confine :osfamily => 'RedHat'
   confine :operatingsystemmajrelease => '7'
@@ -440,7 +424,7 @@ Facter.add(:cis_5_2_15) do
   confine :operatingsystemmajrelease => '7'
   setcode do
     users  = f_search(f,'AllowUsers')
-    groups = f_serach(f,'AllowGroups')
+    groups = f_search(f,'AllowGroups')
     if users == :pass || groups == :pass
       :pass
     else
