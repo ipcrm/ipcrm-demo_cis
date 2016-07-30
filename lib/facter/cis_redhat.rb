@@ -1,3 +1,14 @@
+# Helpers
+def f_search (f,pattern)
+  f.each do |line|
+    if line.match(/#{pattern}/) && !line.match(/#/)
+      return :pass
+    end
+  end
+  return :fail
+end
+
+
 Facter.add(:cis_1_1_1_1) do
   confine :osfamily => 'RedHat'
   confine :operatingsystemmajrelease => '7'
@@ -290,6 +301,150 @@ Facter.add(:cis_1_8) do
       :fail
     else
       :pass
+    end
+  end
+end
+
+
+Facter.add(:cis_5_2_1) do
+  confine :osfamily => 'RedHat'
+  confine :operatingsystemmajrelease => '7'
+  setcode do
+    f = File.stat("/etc/ssh/sshd_config")
+    mode = "%04o" % f.mode
+    if ( mode == '100600' and f.uid == 0 and f.gid == 0 )
+      :pass
+    else
+      :fail
+    end
+  end
+end
+
+# Go pick up the contents of sshd_config for some checks
+f = File.readlines('/etc/ssh/sshd_config')
+
+Facter.add(:cis_5_2_2) do
+  confine :osfamily => 'RedHat'
+  confine :operatingsystemmajrelease => '7'
+  setcode do
+    f_search(f,'Protocol 2')
+  end
+end
+
+
+Facter.add(:cis_5_2_3) do
+  confine :osfamily => 'RedHat'
+  confine :operatingsystemmajrelease => '7'
+  setcode do
+    f_search(f,'LogLevel INFO')
+  end
+end
+
+Facter.add(:cis_5_2_4) do
+  confine :osfamily => 'RedHat'
+  confine :operatingsystemmajrelease => '7'
+  setcode do
+    f_search(f,'X11Forwarding no')
+  end
+end
+
+Facter.add(:cis_5_2_5) do
+  confine :osfamily => 'RedHat'
+  confine :operatingsystemmajrelease => '7'
+  setcode do
+    f_search(f,'MaxAuthTries 4')
+  end
+end
+
+Facter.add(:cis_5_2_6) do
+  confine :osfamily => 'RedHat'
+  confine :operatingsystemmajrelease => '7'
+  setcode do
+    f_search(f,'IgnoreRhosts yes')
+  end
+end
+
+Facter.add(:cis_5_2_7) do
+  confine :osfamily => 'RedHat'
+  confine :operatingsystemmajrelease => '7'
+  setcode do
+    f_search(f,'HostbasedAuthentication no')
+  end
+end
+
+Facter.add(:cis_5_2_8) do
+  confine :osfamily => 'RedHat'
+  confine :operatingsystemmajrelease => '7'
+  setcode do
+    f_search(f,'PermitRootLogin no')
+  end
+end
+
+
+Facter.add(:cis_5_2_9) do
+  confine :osfamily => 'RedHat'
+  confine :operatingsystemmajrelease => '7'
+  setcode do
+    f_search(f,'PermitEmptyPasswords no')
+  end
+end
+
+Facter.add(:cis_5_2_10) do
+  confine :osfamily => 'RedHat'
+  confine :operatingsystemmajrelease => '7'
+  setcode do
+    f_search(f,'PermitUserEnvironment no')
+  end
+end
+
+Facter.add(:cis_5_2_11) do
+  confine :osfamily => 'RedHat'
+  confine :operatingsystemmajrelease => '7'
+  setcode do
+    f_search(f,'Ciphers aes256-ctr,aes192-ctr,aes128-ctr')
+  end
+end
+
+Facter.add(:cis_5_2_12) do
+  confine :osfamily => 'RedHat'
+  confine :operatingsystemmajrelease => '7'
+  setcode do
+    f_search(f,'MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,umac-128@openssh.com')
+  end
+end
+
+Facter.add(:cis_5_2_13) do
+  confine :osfamily => 'RedHat'
+  confine :operatingsystemmajrelease => '7'
+  setcode do
+    alive_interval = f_search(f,'ClientAliveInterval 300')
+    alive_count = f_search(f,'ClientAliveCountMax 0')
+    if alive_interval == :pass && alive_count == :pass
+      :pass
+    else
+      :fail
+    end
+  end
+end
+
+Facter.add(:cis_5_2_14) do
+  confine :osfamily => 'RedHat'
+  confine :operatingsystemmajrelease => '7'
+  setcode do
+    f_search(f,'LoginGraceTime 60')
+  end
+end
+
+Facter.add(:cis_5_2_15) do
+  confine :osfamily => 'RedHat'
+  confine :operatingsystemmajrelease => '7'
+  setcode do
+    users  = f_search(f,'AllowUsers')
+    groups = f_serach(f,'AllowGroups')
+    if users == :pass || groups == :pass
+      :pass
+    else
+      :fail
     end
   end
 end

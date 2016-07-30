@@ -2,7 +2,7 @@ class demo_cis::controls::redhat::seven::cis_1_7_1_1 (
   $enable = true
 ){
   if $enable == true {
-    file {'cis_1_7_1_1':
+    file {'cis_1_7_1_1_motd':
       ensure  => present,
       path    => '/etc/motd',
       owner   => 'root',

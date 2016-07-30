@@ -18,6 +18,7 @@ class demo_cis::controls::redhat {
           include ::demo_cis::controls::redhat::seven::cis_1_7_1_4
           include ::demo_cis::controls::redhat::seven::cis_1_7_1_5
           include ::demo_cis::controls::redhat::seven::cis_1_7_1_6
+          include ::demo_cis::controls::redhat::seven::cis_5_2
     }
     default: {}
   }
