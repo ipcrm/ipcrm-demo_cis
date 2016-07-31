@@ -164,7 +164,7 @@ Facter.add(:cis_1_5_1) do
     t = Facter::Core::Execution.exec(
       '/sbin/sysctl fs.suid_dumpable'
     )
-    if ( s != '* hard core 0' or t != 'fs.suid_dumpable = 0' )
+    if ( ! s.match(/\* hard core 0/) or t != 'fs.suid_dumpable = 0' )
       :fail
     else
       :pass
