@@ -305,7 +305,11 @@ Facter.add(:cis_5_2_1) do
 end
 
 # Go pick up the contents of sshd_config for some checks
-f = File.readlines('/etc/ssh/sshd_config')
+sshd_config = '/etc/ssh/sshd_config'
+f = Array.new
+if File.file?(sshd_config)
+  f = File.readlines('/etc/ssh/sshd_config')
+end
 
 Facter.add(:cis_5_2_2) do
   confine :osfamily => 'RedHat'
