@@ -12,11 +12,11 @@ def secpol_search(pattern,polvalue,policies)
   end
 end
 
-def scan_reg(regkey,path,reqvalue)
+def scan_reg(regkey,value,reqvalue)
   require 'win32/registry'
   begin
     Win32::Registry::HKEY_LOCAL_MACHINE.open(regkey, Win32::Registry::KEY_READ) do |reg|
-      if reg['EnableFirewall'] == reqvalue
+      if reg[value] == reqvalue
         :pass
       else
         :fail
