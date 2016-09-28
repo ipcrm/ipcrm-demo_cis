@@ -12,6 +12,22 @@ def secpol_search(pattern,polvalue,policies)
   end
 end
 
+def scan_reg(regkey,path,reqvalue)
+  require 'win32/registry'
+  begin
+    Win32::Registry::HKEY_LOCAL_MACHINE.open(regkey, Win32::Registry::KEY_READ) do |reg|
+      if reg['EnableFirewall'] == reqvalue
+        :pass
+      else
+        :fail
+      end
+    end
+  rescue
+      :fail
+  end
+end
+
+
 # Get current security policy
 sechash = Hash.new
 if Facter.value('osfamily') == 'windows' and Facter.value('operatingsystemmajrelease') == '2012 R2'
@@ -75,3 +91,14 @@ Facter.add(:cis_1_1_6) do
     secpol_search('ClearTextPassword','1',sechash)
   end
 end
+
+Facter.add(:cis_9_1_1) do
+  confine :osfamily => 'windows'
+  confine :operatingsystemmajrelease => '2012 R2'
+  setcode do
+    regkey = 'SOFTWARE\\Policies\\Microsoft\\WindowsFirewall\\DomainProfile'
+    scan_reg(regkey,'EnableFirewall',1)
+  end
+end
+
+
