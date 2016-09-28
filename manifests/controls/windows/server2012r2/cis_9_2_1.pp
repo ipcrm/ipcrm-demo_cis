@@ -6,7 +6,7 @@ class demo_cis::controls::windows::server2012r2::cis_9_2_1 {
     }
   }
 
-  registry_value { "${key}/EnableFirewall":
+  registry_value { "${key}\\EnableFirewall":
     ensure  => present,
     type    => 'dword',
     data    => 1,
