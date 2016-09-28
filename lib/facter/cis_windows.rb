@@ -17,14 +17,15 @@ sechash = Hash.new
 if Facter.value('osfamily') == 'windows' and Facter.value('operatingsystemmajrelease') == '2012 R2'
 
     Facter::Core::Execution.exec('secedit /export /cfg C:\secedit.ini')
-
-    secpolicy = IO.readlines('C:\secedit.ini')
-    secpolicy.each do |l|
-      if l.match(/\=/)
-        key,value=l.split(/[\s]?=[\s]?/)
-        sechash[key.chomp.gsub(/\\/,'')] = value.chomp
+    File.open('C:\secedit.ini', "rb:UTF-16LE") do |f|
+      f.each_line do |line|
+        if line.encode!('utf-8').match(/\=/)
+          key,value=line.split(/[\s]?=[\s]?/)
+          sechash[key.chomp.gsub(/\\/,'')] = value.chomp
+        end
       end
     end
+
 end
 
 Facter.add(:cis_win_1_1_1) do
