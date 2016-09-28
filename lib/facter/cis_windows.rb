@@ -28,7 +28,7 @@ if Facter.value('osfamily') == 'windows' and Facter.value('operatingsystemmajrel
 
 end
 
-Facter.add(:cis_win_1_1_1) do
+Facter.add(:cis_1_1_1) do
   confine :osfamily => 'windows'
   confine :operatingsystemmajrelease => '2012 R2'
   setcode do
@@ -36,7 +36,7 @@ Facter.add(:cis_win_1_1_1) do
   end
 end
 
-Facter.add(:cis_win_1_1_2) do
+Facter.add(:cis_1_1_2) do
   confine :osfamily => 'windows'
   confine :operatingsystemmajrelease => '2012 R2'
   setcode do
@@ -44,7 +44,7 @@ Facter.add(:cis_win_1_1_2) do
   end
 end
 
-Facter.add(:cis_win_1_1_3) do
+Facter.add(:cis_1_1_3) do
   confine :osfamily => 'windows'
   confine :operatingsystemmajrelease => '2012 R2'
   setcode do
@@ -52,7 +52,7 @@ Facter.add(:cis_win_1_1_3) do
   end
 end
 
-Facter.add(:cis_win_1_1_4) do
+Facter.add(:cis_1_1_4) do
   confine :osfamily => 'windows'
   confine :operatingsystemmajrelease => '2012 R2'
   setcode do
@@ -60,7 +60,7 @@ Facter.add(:cis_win_1_1_4) do
   end
 end
 
-Facter.add(:cis_win_1_1_5) do
+Facter.add(:cis_1_1_5) do
   confine :osfamily => 'windows'
   confine :operatingsystemmajrelease => '2012 R2'
   setcode do
@@ -68,7 +68,7 @@ Facter.add(:cis_win_1_1_5) do
   end
 end
 
-Facter.add(:cis_win_1_1_6) do
+Facter.add(:cis_1_1_6) do
   confine :osfamily => 'windows'
   confine :operatingsystemmajrelease => '2012 R2'
   setcode do
