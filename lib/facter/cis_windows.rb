@@ -88,7 +88,7 @@ Facter.add(:cis_1_1_6) do
   confine :osfamily => 'windows'
   confine :operatingsystemmajrelease => '2012 R2'
   setcode do
-    secpol_search('ClearTextPassword','1',sechash)
+    secpol_search('ClearTextPassword','0',sechash)
   end
 end
 
