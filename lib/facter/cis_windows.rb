@@ -101,4 +101,20 @@ Facter.add(:cis_9_1_1) do
   end
 end
 
+Facter.add(:cis_9_2_1) do
+  confine :osfamily => 'windows'
+  confine :operatingsystemmajrelease => '2012 R2'
+  setcode do
+    regkey = 'SOFTWARE\\Policies\\Microsoft\\WindowsFirewall\\PrivateProfile'
+    scan_reg(regkey,'EnableFirewall',1)
+  end
+end
 
+Facter.add(:cis_9_3_1) do
+  confine :osfamily => 'windows'
+  confine :operatingsystemmajrelease => '2012 R2'
+  setcode do
+    regkey = 'SOFTWARE\\Policies\\Microsoft\\WindowsFirewall\\PublicProfile'
+    scan_reg(regkey,'EnableFirewall',1)
+  end
+end
