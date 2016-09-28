@@ -1,4 +1,4 @@
-class demo_cis::windows::server2012r2::cis_9_1_1 {
+class demo_cis::controls::windows::server2012r2::cis_9_1_1 {
   $key = 'SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile'
   if ! defined(Registry_key[$key]){
     registry_key{ $key:
