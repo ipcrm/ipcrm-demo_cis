@@ -11,6 +11,11 @@ class demo_cis::controls::windows {
       include ::demo_cis::controls::windows::server2012r2::cis_9_1_1
       include ::demo_cis::controls::windows::server2012r2::cis_9_2_1
       include ::demo_cis::controls::windows::server2012r2::cis_9_3_1
+      include ::demo_cis::controls::windows::server2012r2::cis_17_1_1
+      include ::demo_cis::controls::windows::server2012r2::cis_17_2_1
+      include ::demo_cis::controls::windows::server2012r2::cis_17_3_1
+      include ::demo_cis::controls::windows::server2012r2::cis_17_4_1
+      include ::demo_cis::controls::windows::server2012r2::cis_17_5_1
     }
     default: {}
   }
