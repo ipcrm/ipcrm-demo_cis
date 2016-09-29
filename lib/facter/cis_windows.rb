@@ -27,11 +27,21 @@ def scan_reg(regkey,value,reqvalue)
   end
 end
 
+def audit_pol(settings,subcategory,success,failure)
+  if settings[subcategory][:success] == success \
+  and settings[subcategory][:failure] == failure
+    :pass
+  else
+    :fail
+  end
+end
 
 # Get current security policy
 sechash = Hash.new
+audithash = Hash.new
 if Facter.value('osfamily') == 'windows' and Facter.value('operatingsystemmajrelease') == '2012 R2'
 
+    # Setup Secedit hash
     Facter::Core::Execution.exec('secedit /export /cfg C:\secedit.ini')
     File.open('C:\secedit.ini', "rb:UTF-16LE") do |f|
       f.each_line do |line|
@@ -42,6 +52,39 @@ if Facter.value('osfamily') == 'windows' and Facter.value('operatingsystemmajrel
       end
     end
 
+    # Setup Auditpol Hash
+    # https://github.com/jonono/puppet-auditpol/blob/master/lib/puppet/provider/auditpol/auditpol.rb
+    # generate a list of all categories and subcategories in csv
+    categories = Facter::Core::Execution.exec('auditpol /get /category:* /r')
+
+    # the drop(1) drops the header line
+    categories.split("\n").drop(1).collect do |line|
+
+      line_array = line.split(',')
+      subcategory_name = line_array[2]
+      subcategory_policy = line_array[4]
+
+      case subcategory_policy
+      when 'Success'
+        success = 'enable'
+        failure = 'disable'
+      when 'Failure'
+        success = 'disable'
+        failure = 'enable'
+      when 'Success and Failure'
+        success = 'enable'
+        failure = 'enable'
+      when 'No Auditing'
+        success = 'disable'
+        failure = 'disable'
+      else # disable all if something weird happened I guess
+        success = 'disable'
+        failure = 'disable'
+      end
+
+      audithash[subcategory_name] = { :success => success, :failure => failure, }
+
+    end
 end
 
 Facter.add(:cis_1_1_1) do
