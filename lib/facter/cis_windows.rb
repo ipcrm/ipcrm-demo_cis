@@ -198,6 +198,6 @@ Facter.add(:cis_17_5_1) do
   confine :osfamily => 'windows'
   confine :operatingsystemmajrelease => '2012 R2'
   setcode do
-    audit_pol(audithash,'Account Lockout','enable','enable')
+    audit_pol(audithash,'Account Lockout','enable','disable')
   end
 end
