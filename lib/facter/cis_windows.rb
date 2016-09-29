@@ -161,3 +161,43 @@ Facter.add(:cis_9_3_1) do
     scan_reg(regkey,'EnableFirewall',1)
   end
 end
+
+Facter.add(:cis_17_1_1) do
+  confine :osfamily => 'windows'
+  confine :operatingsystemmajrelease => '2012 R2'
+  setcode do
+    audit_pol(audithash,'Credential Validation','enable','enable')
+  end
+end
+
+Facter.add(:cis_17_2_1) do
+  confine :osfamily => 'windows'
+  confine :operatingsystemmajrelease => '2012 R2'
+  setcode do
+    audit_pol(audithash,'Application Group Management','enable','enable')
+  end
+end
+
+Facter.add(:cis_17_3_1) do
+  confine :osfamily => 'windows'
+  confine :operatingsystemmajrelease => '2012 R2'
+  setcode do
+    audit_pol(audithash,'Process Creation','enable','enable')
+  end
+end
+
+Facter.add(:cis_17_4_1) do
+  confine :osfamily => 'windows'
+  confine :operatingsystemmajrelease => '2012 R2'
+  setcode do
+    audit_pol(audithash,'Directory Service Access','enable','enable')
+  end
+end
+
+Facter.add(:cis_17_5_1) do
+  confine :osfamily => 'windows'
+  confine :operatingsystemmajrelease => '2012 R2'
+  setcode do
+    audit_pol(audithash,'Account Lockout','enable','enable')
+  end
+end
