@@ -15,3 +15,16 @@ To use:
 include ::demo_cis
 ```
 
+To enable windows firewall helper:
+
+```
+demo_cis::controls::windows::server2012r2::cis_helpers::create_service_helper: true
+```
+
+To enable RHEL MOTD management:
+
+```
+demo_cis::controls::redhat::seven::cis_1_7_1_1::enable: true
+```
+
+
