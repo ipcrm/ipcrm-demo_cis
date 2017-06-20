@@ -11,7 +11,7 @@ class demo_cis::controls::windows::server2012r2::cis_9_1_1 {
     type    => 'dword',
     data    => 1,
     require => Registry_key[$key],
-    notify  => Service['cis-windows_firewall'],
+    notify  => Service['windows_firewall'],
   }
 
 }
