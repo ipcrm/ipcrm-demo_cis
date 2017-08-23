@@ -2,7 +2,7 @@ class demo_cis::controls::redhat::seven::cis_5_2 (
   $enable = true
 ){
   if $enable == true {
-    class {'::ssh':
+    class {'::ssh::server':
       ssh_config_owner                  => 'root',
       ssh_config_group                  => 'root',
       ssh_config_mode                   => '0600',
