@@ -18,7 +18,7 @@ class demo_cis::controls::redhat::seven::cis_5_2 (
       ],
       client_alive_interval  => '300',
       client_alive_count_max => '0',
-      config_allowed_groups  => ['wheel'],
+      allowed_groups         => ['wheel'],
       banner_file            => '/etc/issue.net',
     }
   }
