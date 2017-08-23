@@ -6,7 +6,6 @@ class demo_cis::controls::redhat::seven::cis_5_2 (
       syslog_level           => 'INFO',
       x11_forwarding         => 'no',
       max_auth_retries       => 4,
-      sshd_ignorerhosts      => 'yes',
       permit_root_login      => 'no',
       ciphers                => ['aes256-ctr','aes192-ctr','aes128-ctr'],
       macs                   => [
