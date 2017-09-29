@@ -48,10 +48,8 @@ if Facter.value('osfamily') == 'windows' and Facter.value('operatingsystemmajrel
         if line.encode!('utf-8').match(/\=/)
           key,value=line.split(/[\s]?=[\s]?/)
 
-          if !value.nil?
+          unless value.nil? or key.nil?
             sechash[key.chomp.gsub(/\\/,'')] = value.chomp
-          else
-            sechash[key.chomp.gsub(/\\/,'')] = nil
           end
 
         end
