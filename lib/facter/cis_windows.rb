@@ -47,7 +47,13 @@ if Facter.value('osfamily') == 'windows' and Facter.value('operatingsystemmajrel
       f.each_line do |line|
         if line.encode!('utf-8').match(/\=/)
           key,value=line.split(/[\s]?=[\s]?/)
-          sechash[key.chomp.gsub(/\\/,'')] = value.chomp
+
+          if !value.nil?
+            sechash[key.chomp.gsub(/\\/,'')] = value.chomp
+          else
+            sechash[key.chomp.gsub(/\\/,'')] = nil
+          end
+
         end
       end
     end
